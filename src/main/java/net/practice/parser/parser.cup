@@ -1,0 +1,68 @@
+package net.practice.parser;
+
+import net.practice.ast.Program;
+import java.util.Stack;
+
+terminal
+
+  INCLUDE;
+
+terminal String
+
+  INCLUDE_NAME;
+
+non terminal
+
+  stmtList,
+  stmt;
+
+non terminal Stack
+
+  packageList;
+
+non terminal Program
+
+  program;
+
+non terminal String
+
+  package;
+
+
+start with program;
+
+program::= packageList:pl stmtList:sl{:
+  RESULT = new Program(pl, sl);
+:};
+
+packageList::= package:pk packageList:pkl{:
+                RESULT = new Stack<String>();
+                RESULT.add(pk);
+                if (pkl != null){
+                  RESULT.addAll(pkl);
+                }
+              :}
+              | /* empty package list */
+              ;
+
+package::= INCLUDE PACKAGE_NAME:name{: RESULT = name:};
+
+
+stmtList::= stmt stmtList
+            | /* empty stmt list */
+            ;
+
+/**
+ * Statement could be:
+ * - variables declaration
+ * - function declaration
+ */
+stmt::= varDcl
+        | fnDcl
+        ;
+
+varDcl::=
+
+fnDcl::=
+
+
