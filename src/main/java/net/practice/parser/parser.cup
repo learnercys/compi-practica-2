@@ -4,12 +4,15 @@ import net.practice.ast.Program;
 import java.util.Stack;
 
 terminal
-
+  INT,
+  CHAR,
+  FLOAT,
   INCLUDE;
 
 terminal String
 
-  INCLUDE_NAME;
+  INCLUDE_NAME,
+  ID;
 
 non terminal
 
@@ -63,6 +66,15 @@ stmt::= varDcl
 
 varDcl::=
 
-fnDcl::=
+fnDcl::= type ID O_PAREN fnParamList C_PAREN O_BRACE fnStmt C_BRACE;
 
+fnParamList::= fnParam fnParamList
+                | /* empty params list*/
+                ;
+
+type::= INT
+        | CHAR
+        | CHART MULTIPLICATION
+        | FLOAT
+        ;
 
