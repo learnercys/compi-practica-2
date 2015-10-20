@@ -70,50 +70,50 @@ EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
   "else"                          { return symbol(sym.ELSE); }
 
   // single chars with meaning - arithmetic operators
-    \*                              { return symbol(sym.MULTIPLICATION); }
-    \+                              { return symbol(sym.PLUS); }
-    \-                              { return symbol(sym.MINUS); }
-    \/                              { return symbol(sym.SLASH); }
-    "%"                             { return symbol(sym.MODULE); }
+  \*                              { return symbol(sym.MULTIPLICATION); }
+  \+                              { return symbol(sym.PLUS); }
+  \-                              { return symbol(sym.MINUS); }
+  \/                              { return symbol(sym.SLASH); }
+  "%"                             { return symbol(sym.MODULE); }
 
-    // single chars with meaning - relational operators
-    "<"                             { return symbol(sym.LT); }
-    ">"                             { return symbol(sym.MT); }
-    "<="                            { return symbol(sym.LTEQ); }
-    ">="                            { return symbol(sym.MTEQ); }
-    "=="                            { return symbol(sym.EQEQ); }
-    "!="                            { return symbol(sym.NEQ); }
+  // single chars with meaning - relational operators
+  "<"                             { return symbol(sym.LT); }
+  ">"                             { return symbol(sym.MT); }
+  "<="                            { return symbol(sym.LTEQ); }
+  ">="                            { return symbol(sym.MTEQ); }
+  "=="                            { return symbol(sym.EQEQ); }
+  "!="                            { return symbol(sym.NEQ); }
 
-    // single charts with meaning - increase, decrease
-    "++"                            { return symbol(sym.PLUS_PLUS); }
-    "--"                            { return symbol(sym.MINUS_MINUS); }
+  // single charts with meaning - increase, decrease
+  "++"                            { return symbol(sym.PLUS_PLUS); }
+  "--"                            { return symbol(sym.MINUS_MINUS); }
 
-    // single chars with meaning - assignation operations
-    "+="                            { return symbol(sym.PLUS_EQ); }
-    "-="                            { return symbol(sym.MINUS_EQ); }
-    "*="                            { return symbol(sym.MULTIPLICATION_EQ); }
+  // single chars with meaning - assignation operations
+  "+="                            { return symbol(sym.PLUS_EQ); }
+  "-="                            { return symbol(sym.MINUS_EQ); }
+  "*="                            { return symbol(sym.MULTIPLICATION_EQ); }
 
-    // values
-    {INT_VALUE}                     { return symbol(sym.INT_VALUE); }
-    {FLOAT_VALUE}                   { return symbol(sym.FLOAT_VALUE); }
-    \"                              { string.setLength(0); yybegin(STRING); }
-    \'                              { string.setLength(0); yybegin(CHAR); }
-    ":"                             { return symbol(sym.COLON); }
-    ";"                             { return symbol(sym.SEMICOLON); }
-    ","                             { return symbol(sym.COMMA); }
-    "="                             { return symbol(sym.EQ); }
-    "{"                             { return symbol(sym.O_BRACE); }
-    "}"                             { return symbol(sym.C_BRACE); }
-    "("                             { return symbol(sym.O_PAREN); }
-    ")"                             { return symbol(sym.C_PAREN); }
-    {ID}                            { return symbol(symID); }
+  // values
+  {INT_VALUE}                     { return symbol(sym.INT_VALUE); }
+  {FLOAT_VALUE}                   { return symbol(sym.FLOAT_VALUE); }
+  \"                              { string.setLength(0); yybegin(STRING); }
+  \'                              { string.setLength(0); yybegin(CHAR); }
+  ":"                             { return symbol(sym.COLON); }
+  ";"                             { return symbol(sym.SEMICOLON); }
+  ","                             { return symbol(sym.COMMA); }
+  "="                             { return symbol(sym.EQ); }
+  "{"                             { return symbol(sym.O_BRACE); }
+  "}"                             { return symbol(sym.C_BRACE); }
+  "("                             { return symbol(sym.O_PAREN); }
+  ")"                             { return symbol(sym.C_PAREN); }
+  {ID}                            { return symbol(symID); }
 
 
-    // comments
-    {Comment}                       { /* ignore comments */ }
+  // comments
+  {Comment}                       { /* ignore comments */ }
 
-    /* whitespace */
-    {WhiteSpace}                    { /* ignore */ }
+  /* whitespace */
+  {WhiteSpace}                    { /* ignore */ }
 
 }
 
