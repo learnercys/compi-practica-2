@@ -14,7 +14,9 @@ public class Main extends Application{
   @Override
   public void start(Stage primaryStage) throws Exception {
     BorderPane root = FXMLLoader.load(getClass().getResource("main_ctrl.fxml"));
-    primaryStage.setScene(new Scene(root));
+    Scene scene = new Scene(root);
+    scene.getStylesheets().add(Main.class.getResource("components/c-styles.css").toExternalForm());
+    primaryStage.setScene(scene);
     primaryStage.setMaximized(false);
     primaryStage.show();
   }

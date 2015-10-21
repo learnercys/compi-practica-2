@@ -1,14 +1,14 @@
 package net.practice.ast;
 
-import java.util.Stack;
+import java.util.LinkedList;
 
 /**
  * @author learnercys on 10/19/15.
  */
 public class Program {
-  private Stack<String> packages;
+  private LinkedList<String> packages;
 
-  Program(Stack<String> pl/*, todo: add statements to constructor */) {
+  public Program(LinkedList<String> pl/*, todo: add statements to constructor */) {
     packages = pl;
   }
 
@@ -16,7 +16,7 @@ public class Program {
    * Return the current packages saved in the program.
    * @return The packages.
    */
-  public Stack<String> getPackages() {
+  public LinkedList<String> getPackages() {
     return packages;
   }
 

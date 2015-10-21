@@ -1,80 +1,55 @@
 package net.practice.parser;
 
+import java_cup.runtime.*;
+import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.ArrayList;
 import net.practice.ast.Program;
-import java.util.Stack;
+
+parser code{:
+    public boolean hasUnRecoveredSyntaxError = false;
+    public ArrayList<HashMap<String, String>> errors = new ArrayList<>();
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        // has some un-recovered syntax error(structure error)
+        this.hasUnRecoveredSyntaxError = true;
+    }
+
+    public void syntax_error(Symbol cur_token) {
+        HashMap<String, String> error = new HashMap<>();
+        error.put("text", (String) cur_token.value);
+        // todo add token type
+        error.put("number", Integer.toString(errors.size() + 1));
+        errors.add( error );
+    }
+:}
 
 terminal
-  INT,
-  CHAR,
-  FLOAT,
   INCLUDE;
 
 terminal String
-
-  INCLUDE_NAME,
-  ID;
-
-non terminal
-
-  stmtList,
-  stmt;
-
-non terminal Stack
-
-  packageList;
+  PKG_NAME;
 
 non terminal Program
-
   program;
 
+non terminal LinkedList
+  pkgList;
+
 non terminal String
-
-  package;
-
+  pkg;
 
 start with program;
 
-program::= packageList:pl stmtList:sl{:
-  RESULT = new Program(pl, sl);
+program::= pkgList:pl{:
+  RESULT = new Program(pl);
 :};
 
-packageList::= package:pk packageList:pkl{:
-                RESULT = new Stack<String>();
-                RESULT.add(pk);
-                if (pkl != null){
-                  RESULT.addAll(pkl);
-                }
-              :}
-              | /* empty package list */
-              ;
+pkgList::=  {: RESULT = new LinkedList<String>(); :}
+            | pkg:pk pkgList:pkl{:
+              RESULT = pkl;
+              RESULT.add(pk);
+            :};
 
-package::= INCLUDE PACKAGE_NAME:name{: RESULT = name:};
-
-
-stmtList::= stmt stmtList
-            | /* empty stmt list */
-            ;
-
-/**
- * Statement could be:
- * - variables declaration
- * - function declaration
- */
-stmt::= varDcl
-        | fnDcl
-        ;
-
-varDcl::=
-
-fnDcl::= type ID O_PAREN fnParamList C_PAREN O_BRACE fnStmt C_BRACE;
-
-fnParamList::= fnParam fnParamList
-                | /* empty params list*/
-                ;
-
-type::= INT
-        | CHAR
-        | CHART MULTIPLICATION
-        | FLOAT
-        ;
+pkg::= INCLUDE PKG_NAME:name{: RESULT = name; :};
 

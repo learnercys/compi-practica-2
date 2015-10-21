@@ -5,9 +5,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.GridPane;
+import net.practice.ast.Program;
 import net.practice.components.InputArea;
 import net.practice.components.OutputArea;
+import net.practice.parser.Parser;
+import net.practice.tokenizer.Tokenizer;
 
+import java.io.StringReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,6 +26,10 @@ public class MainCtrl implements Initializable{
   InputArea inputArea = new InputArea();
   OutputArea outputArea = new OutputArea();
 
+  Parser parser;
+  Program program;
+  Tokenizer tokenizer;
+
   @FXML GridPane areasContainer;
   @FXML Menu fixFileMenu;
   @FXML Menu showGraphMenu;
@@ -31,6 +39,23 @@ public class MainCtrl implements Initializable{
    */
   private void fixFile(){
     System.out.println("fixFile");
+
+    if( inputArea.getText().trim().length() == 0) {
+      // TODO: can't fix an empty file
+    }
+
+    StringReader stringReader = new StringReader(inputArea.getText());
+    tokenizer = new Tokenizer(stringReader);
+    parser = new Parser(tokenizer);
+
+    try {
+
+      program = ((Program) parser.parse().value);
+      outputArea.setText(program);
+      System.out.println("parse successful");
+    } catch (Exception e) {
+      // TODO: can't read the current file( if that can be possible)
+    }
   }
 
   /**
@@ -38,6 +63,7 @@ public class MainCtrl implements Initializable{
    */
   private void showGraph() {
     System.out.println("showGraph");
+
   }
 
   @Override
