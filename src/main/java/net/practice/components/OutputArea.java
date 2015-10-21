@@ -24,7 +24,6 @@ public class OutputArea extends AbstractCodeArea {
     // to empty the current text field.
     replaceText("");
 
-    // TODO: show the packages in the right order.
     // set the packages
     program.getPackages().forEach(pkg-> appendText("#include " + pkg + EOL) );
   }

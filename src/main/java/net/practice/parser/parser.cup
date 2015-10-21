@@ -48,7 +48,7 @@ program::= pkgList:pl{:
 pkgList::=  {: RESULT = new LinkedList<String>(); :}
             | pkg:pk pkgList:pkl{:
               RESULT = pkl;
-              RESULT.add(pk);
+              RESULT.addFirst(pk);
             :};
 
 pkg::= INCLUDE PKG_NAME:name{: RESULT = name; :};
